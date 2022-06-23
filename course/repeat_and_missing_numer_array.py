@@ -32,10 +32,12 @@ def repeatedNumber(A):
             sumOfA2 += a*a
             sumOfA += a
             n += 1
+        print("n",n)
         sumOfN = n*(n+1)/2
         retA = sumOfN - sumOfA
         
         retB = (sumOfN*(2*n+1)/3 - sumOfA2)/retA
+        print(retA,retB)
         x = (retB-retA)/2
         return [x, x + retA]
 
