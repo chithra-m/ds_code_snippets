@@ -24,42 +24,15 @@ def pre_order_traversal(root):
 
 
 def find_max_in_left_sub_tree(root):
-    if root.right is None:
-        temp = root.right
-        if root.left is None:
-            root.right = None
-        else:
-            root = root.left 
-            root.left = None
-        return temp
-    return(root.right)
+    while root.right:
+        root = root.right    
+    return root
 
 
-def delete1(root,data):
-    print("root",root.data)
-    if root.data == data:
-        if root.left is None and root.right is None:
-            print("tyy",root.data)
-            root = None
-            print("tyy",root )
-        elif root.left is not None:
-            root.data = root.left
-            root.left = None
-        elif root.right is not None:
-            root.data = root.right
-            root.right = None
-        else: # child = 2
-            max = find_max_in_left_sub_tree(root)
-            root.data = max
-        return "deleted"
-
-    elif root.left is not None:
-        if root.left.data <= data:
-            return delete(root.left, data)
-    
-    elif root.right is not None:
-        if root.right.data >= data:
-            return delete(root.right, data)
+def find_min_in_left_sub_tree(root):
+    while root.left:
+        root = root.left    
+    return root
 
 
 def delete(root,data):
@@ -73,59 +46,32 @@ def delete(root,data):
         else:
             cur = cur.right
     
-        print(cur.data,par.data)
+    print(cur.data,par.data)
 
     if cur is None:
         return root
-    
-    # elif par.data < cur.data:
-    #     if cur.left is None and cur.right is None:
-    #         par.right = None
-    #     elif cur.left is not None:
-    #         par.right = cur.left
-    #     elif cur.right is not None:
-    #         par.left = cur.right
-    #     else:
-    #         max = find_max_in_left_sub_tree(cur)
-    #         cur.data = max 
 
-    
+    # leaf node - no child
     elif cur.left is None and cur.right is None:
         if par.data > cur.data:
             par.left = None
         else:
             par.right = None
 
-
-    elif cur.left is not None:
-        if par.data > cur.data:
+    # only left child
+    elif cur.left is not None and cur.right is None:
             par.left = cur.left
-        else:
-            par.right = cur.left
-
-    elif cur.right is not None:
-        if par.data > cur.data:
-            par.left = cur.right
-        else:
-            par.left = cur.right
-
+     
+    # only right child
+    elif cur.right is not None and cur.left is None:
+            par.right = cur.right
+       
+    # 2 childs    
     else:
-            max = find_max_in_left_sub_tree(cur)
-            cur.data = max 
-
-    # elif par.data > cur.data:
-    #     if cur.left is None and cur.right is None:
-    #         par.left = None
-    #     elif cur.left is not None:
-    #         par.left = cur.left
-    #     elif cur.right is not None:
-    #         par.left = cur.right
-    #     else:
-    #         max = find_max_in_left_sub_tree(cur)
-    #         cur.data = max 
-
-    # elif par.data < cur.data :
-    #     par.left = None
+        max = find_min_in_left_sub_tree(cur)
+        val = max.data
+        delete(root,val)
+        cur.data = val 
 
 
 root = Node(10)
@@ -134,9 +80,12 @@ insert(root,8)
 insert(root,12)
 insert(root,14)
 insert(root,16)
+insert(root,11)
+print("after insertion")
 pre_order_traversal(root) 
 # print(delete(root,16))
 print(delete(root,12))
-print("asg")
+# print(delete(root,5))
+print("after deletion")
 pre_order_traversal(root)
 
