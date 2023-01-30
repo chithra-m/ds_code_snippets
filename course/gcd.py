@@ -7,7 +7,7 @@ def gcd(a,b):
 
 A = 97
 B = 45
-print(gcd(A,B))
+print(gcd(2,3))
 # print(24%30)
 # print(24%24)
 print(26 ** 0)

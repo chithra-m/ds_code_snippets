@@ -1,22 +1,19 @@
+def solve(A):
+    return single(A)
 
-def sum_of_digits(A,total):
-    if A >= 1:
-        total += A % 10
-        A = A // 10
-        return sum_of_digits(A,total)
-    return total
-
-
-def magic(A):
-    ans = sum_of_digits(A,0)
-    if ans >= 10:
-        sum_of_digits(ans,0)
-        return magic(ans)
-    if ans == 1:
+def single(A):
+    if A == 1:
         return 1
-    else:
-        return 0
+    if A <= 9:
+        return 0 
+    sum1 = sum(A)    
+    return single(sum1)
+    
 
-A = 83557
-A = 1291
-print(magic(A))
+def sum(A):
+    if A == 0:
+        return 0
+    if A >= 1 :
+        return (A %10) + sum(A//10)
+
+print(solve(83557))
